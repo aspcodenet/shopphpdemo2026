@@ -1,6 +1,6 @@
 <?php
 class Product{
-    public $id;
+    public $id; // auto increment i verkligheten
     public $title;
     public $price;
     public $stockLevel;
@@ -17,6 +17,8 @@ class Product{
 
 };
 
+
+// kommer att hämtas från databas i verkligheten
 $allaProdukter = [
 new Product(1,'Chai',18,39,'Beverages'),
 new Product(2,'Chang',19,17,'Beverages'),
