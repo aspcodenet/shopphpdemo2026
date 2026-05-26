@@ -10,6 +10,8 @@ class Cart {
         $this->dbContext = $dbContext;
         $this->session_id = $session_id;
         $this->userId = $userId;
+        // i princip = select * from cartitem where sessionId = $session_id 
+        // 
         $this->cartItems = $this->dbContext->getCartItems($userId,$session_id);
 
     }
