@@ -62,7 +62,7 @@ $cartItems = $cart->getItems();
         <div class="container px-4 px-lg-5 mt-5">
             <table class="table">
                 <thead>
-                        <th colspan="5">action</th>
+                        <th colspan="5">Cart</th>
                 </thead>
 
                 <tbody>
@@ -77,7 +77,7 @@ $cartItems = $cart->getItems();
                         <td><?php echo $cartItem->rowPrice; ?></td>
                         <td>
                             <a  href="/addToCart?id=<?php echo $cartItem->productId; ?>&fromPage=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"   class="btn btn-primary">+</a>
-                            <a  href="/removeFromCart?id=<?php echo $cartItem->id; ?>&fromPage=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"   class="btn btn-primary">-</a></td>
+                            <a  href="/removeFromCart?id=<?php echo $cartItem->productId; ?>&fromPage=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"   class="btn btn-primary">-</a></td>
                     </tr>
                     <?php
                     }

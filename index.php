@@ -45,6 +45,9 @@ $router->addRoute('/allproducts', function () {
 $router->addRoute('/addToCart', function () {
    require_once(__DIR__.'/Pages/addToCart.php');
 });
+$router->addRoute('/removeFromCart', function () {
+   require_once(__DIR__.'/Pages/removeFromCart.php');
+});
 $router->addRoute('/viewCart', function () {
    require_once(__DIR__.'/Pages/viewCart.php');
 });
