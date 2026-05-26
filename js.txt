@@ -1,0 +1,14 @@
+document.getElementById('sort-selector').addEventListener('change', function() {
+    // 1. Get the selected value (e.g., "price:desc")
+    const [sort, order] = this.value.split(':');
+
+    // 2. Use URLSearchParams to keep existing parameters (like cat)
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 3. Update the sort and order parameters
+    urlParams.set('sort', sort);
+    urlParams.set('order', order);
+
+    // 4. Reload the page with the new URL string
+    window.location.search = urlParams.toString();
+});

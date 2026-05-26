@@ -1,103 +1,55 @@
 <?php
-include_once("Models/Product.php");
+ob_start(); // STARTAR OUTPUT BUFFERING - ALL OUTPUT KOMMER ATT SPARAS I EN BUFFER OCH SKICKAS TILL WEBBLÄSAREN NÄR VI KALLAR PÅ OB_END_FLUSH() ELLER NÄR SCRIPTET AVSLUTAS. DETTA ÄR ANVÄNDBART FÖR ATT KUNNA SÄNDRA HTTP-HEADER EFTER ATT HA GENERERAT INNEHÅLL, VILKET ANNARS INTE SKULLE VARA MÖJLIGT EFTERSOM HEADER MÅSTE SÄNDAS INNAN NÅGOT ANNAT INNEHÅLL.
+session_start(); // STARTAR EN NY SESSION ELLER ÅTERUPPTAR EN EXISTERANDE SESSION. DETTA ÄR NÖDVÄNDIGT FÖR ATT KUNNA ANVÄNDA $_SESSION-ARRAYEN FÖR ATT LAGRA OCH HANTERA ANVÄNDARDATA ÖVER FLERA SIDOR.
+// session_id() -> HÄMTAR DEN NUVARANDE SESSIONENS ID. 
+// DETTA ÄR ANVÄNDBART FÖR ATT KUNNA SPÅRA OCH HANTERA SESSIONS PÅ 
+// ETT UNIKT SÄTT, S
 
-$allProducts = getAllProducts();
+
+
+// alla besökare fåt ett unikt session id
+// det fixar PHP åt
+
+// Index kommer att bli en grundsida - så vi skapar globala variabler här
+require_once("Utils/Router.php"); // LADDAR IN ROUTER KLASSEN
+
+
+//MAPPA URL mot Kod
+
+$router = new Router();
+$router->addRoute('/', function () {
+    require_once( __DIR__ .'/Pages/index.php');
+});
+$router->addRoute('/product', function () {
+    require_once( __DIR__ .'/Pages/product.php');
+});
+$router->addRoute('/category', function () {
+    require_once( __DIR__ .'/Pages/category.php');
+});
+$router->addRoute('/admin', function () {
+    require_once( __DIR__ .'/Pages/admin.php');
+});
+$router->addRoute('/admin/edit', function () {
+    require_once( __DIR__ .'/Pages/edit.php');
+});
+$router->addRoute('/admin/new', function () {
+    require_once( __DIR__ .'/Pages/new.php');
+});
+
+$router->addRoute('/search', function () {
+    require_once( __DIR__ .'/Pages/search.php');
+});
+$router->addRoute('/allproducts', function () {
+   require_once(__DIR__.'/Pages/allproducts.php');
+});
+$router->addRoute('/addToCart', function () {
+   require_once(__DIR__.'/Pages/addToCart.php');
+});
+$router->addRoute('/viewCart', function () {
+   require_once(__DIR__.'/Pages/viewCart.php');
+});
+$router->dispatch();
+
 
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/index.php">SuperShoppen</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Kategorier</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="#!">En cat</a></li>
-                            </ul> 
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Create account</a></li>
-                    </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Super shoppen</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Handla massa onödigt hos oss!</p>
-                </div>
-            </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <?php 
-                    foreach($allProducts as $product){
-                    ?> 
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder"><?php echo $product->title; ?></h5>
-                                    <!-- Product price-->
-                                    SEK <?php echo $product->price; ?>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                    }
-                    ?>
-                </div>
-            </div> 
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Shop 2025</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
-</html>

@@ -1,7 +1,23 @@
-/*!
-* Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
+const sortSelect = document.getElementById('sortselect');
+if (sortSelect) {
+    sortSelect.addEventListener('change', function() {
+        // this.value innehåller ju <sort>-<order>
+        // title-asc
+
+        // const arr = this.value.split('-');
+        // const sort = arr[0]
+        // const order = arr[1]
+        // // sort = title
+        // order = asc
+        const [sort, order] = this.value.split('-');
+        //Build url
+        // window.location.search = current url query string, ex ?category=1
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        urlSearchParams.set('sort', sort);
+        urlSearchParams.set('order', order);
+
+        
+        // redirect to url
+        window.location.search = urlSearchParams.toString();
+     });    
+}

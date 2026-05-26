@@ -1,5 +1,13 @@
 <?php
-include_once("Models/Product.php")
+require_once("Models/Product.php");
+require_once("components/ProductComponent.php");
+require_once("components/HeaderComponent.php");
+require_once("Models/Database.php");
+
+$database = new Database();
+
+$popularProducts = $database->listAllProducts();
+$allCategories = $database->getAllCategories();
 
 
 ?>
@@ -7,19 +15,9 @@ include_once("Models/Product.php")
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/styles.css" rel="stylesheet" />
+        <?php headerComponent("SuperShoppen - Startsidan"); ?>
     </head>
-    <body>
+    <body> 
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -30,14 +28,30 @@ include_once("Models/Product.php")
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Kategorier</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><a class="dropdown-item" href="/allproducts">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="#!">En cat</a></li>
+                                <?php
+                                foreach($allCategories as $category){
+                                    ?>
+                                    <li><a class="dropdown-item" 
+                                        href="category?id=<?php echo $category->id; ?>">
+                                        <?php echo $category->name;?>
+                                        </a>
+                                    </li>
+                                <?php 
+                                }
+                                ?>
                             </ul> 
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#!">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Create account</a></li>
                     </ul>
+                    <form method="get" action="/search">
+                        <div class="input-group">
+                            <input name="q" class="form-control" type="search" placeholder="Search for..." aria-label="Search for..." />
+                            <button type="submit" class="btn btn-outline-secondary" id="button-search" type="button">Go!</button>
+                        </div>
+                    </form>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
@@ -59,38 +73,19 @@ include_once("Models/Product.php")
         </header>
         <!-- Section-->
         <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <table class="table">
-                <thead>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock level</th>
-                        <th>action</th>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Test</td>
-                        <td>Cars</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td><a class="btn btn-primary">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Test2</td>
-                        <td>Cars</td>
-                        <td>22</td>
-                        <td>12</td>
-                        <td><a class="btn btn-primary">Edit</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <?php 
+                    foreach($popularProducts as $product){
+                        productComponent($product);
+                    }
+                    ?>
+                </div>
+            </div> 
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Shop 2025</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Shop 2025</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
