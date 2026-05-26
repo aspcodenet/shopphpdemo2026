@@ -42,6 +42,12 @@ $router->addRoute('/search', function () {
 $router->addRoute('/allproducts', function () {
    require_once(__DIR__.'/Pages/allproducts.php');
 });
+
+$router->addRoute('/javascriptAddToCart', function () {
+   require_once(__DIR__.'/API/addToCart.php');
+});
+
+
 $router->addRoute('/addToCart', function () {
    require_once(__DIR__.'/Pages/addToCart.php');
 });

@@ -60,7 +60,7 @@ $antalICarten = $cart->getItemsCount();
                         <a class="btn btn-outline-dark" href="/viewCart">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="cartItemCount">
                                 <?php echo $antalICarten; ?>
                             </span>
                         </a>
