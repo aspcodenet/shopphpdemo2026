@@ -62,7 +62,7 @@ $cartItems = $cart->getItems();
         <div class="container px-4 px-lg-5 mt-5">
             <table class="table">
                 <thead>
-                        <th>action</th>
+                        <th colspan="5">action</th>
                 </thead>
 
                 <tbody>
@@ -86,26 +86,15 @@ $cartItems = $cart->getItems();
                 <tfoot>
 
                     <tr>
-                        <td colspan="5">
-                            <a href="/admin/new" class="btn btn-success">Create new product</a>
+                        <td colspan="3">
+                            SUMMA
                         </td>
+                        <td><?php echo $cart->getTotalPrice(); ?></td>
+                        <td><a href="/checkout" class="btn btn-success">Checkout</a></td>
+                    </tr>
                 </tfoot>
             </table>
-            <nav>
-                <ul class="pagination">
-                    <?php
-                    for($i = 1; $i <= $totalPages; $i++){
-                        ?>
-                        <li class="page-item <?php if($i == $page) echo "active"; ?>">
-                            <a class="page-link" href="admin.php?sort=<?php echo $sort; ?>&order=<?php echo $order; ?>&page=<?php echo $i; ?>">
-                                <?php echo $i; ?>
-                            </a>
-                        </li>
-                        <?php
-                    }
-                    ?>
-                </ul>
-            </nav>
+          
         </div>
         </section>
         <!-- Footer-->
