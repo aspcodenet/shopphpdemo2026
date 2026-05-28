@@ -57,6 +57,11 @@ $router->addRoute('/removeFromCart', function () {
 $router->addRoute('/viewCart', function () {
    require_once(__DIR__.'/Pages/viewCart.php');
 });
+
+$router->addRoute('/prisjakt', function () {
+   require_once(__DIR__.'/integrations/prisjakt.php');
+});
+
 $router->dispatch();
 
 

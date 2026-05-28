@@ -7,7 +7,7 @@ class Database {
      public $pdo; // php data object - används för att ansluta till databas och göra queries
 
     function __construct(){
-        // Ladda .env-filen
+        // Ladda .env-filen§
         $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
 
