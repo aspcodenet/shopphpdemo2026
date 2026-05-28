@@ -67,26 +67,7 @@ $antalICarten = $cart->getItemsCount();
                 </thead>
 
                 <tbody id="cartItem">
-                    <?php
-                    foreach($cartItems as $cartItem){
-                        ?>
-                    <tr>
-                        <td>
-                            <b>
-                            <?php echo $cartItem->productName; ?>
-                            </b>
-                        </td>
-                       
-                        <td><?php echo $cartItem->productPrice; ?></td>
-                        <td><?php echo $cartItem->quantity; ?></td>
-                        <td><?php echo $cartItem->rowPrice; ?></td>
-                        <td>
-                            <a  onclick="addToCart(<?php echo $cartItem->productId; ?>)"   class="btn btn-primary">+</a>
-                            <a onclick="removeFromCart(<?php echo $cartItem->productId; ?>)"   class="btn btn-primary">-</a>
-                    </tr>
-                    <?php
-                    }
-                    ?>
+              
                 </tbody>
                 <tfoot>
 
@@ -110,5 +91,12 @@ $antalICarten = $cart->getItemsCount();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script>
+            // när sidan laddas så rendera cart items i tabellen
+            document.addEventListener("DOMContentLoaded", async function() {
+                const data = await fetchCartItems();
+                drawCart(data.cartItems, data.cartTotalPrice);
+            });
+        </script>
     </body>
 </html>

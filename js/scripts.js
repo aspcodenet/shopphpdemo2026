@@ -24,6 +24,14 @@ function drawCart(cartItems, cartTotalPrice) {
     }
 
 }
+
+async function fetchCartItems() {
+    let resp = await fetch('/javascriptFetchCart');
+    let data = await resp.json();
+    console.log(data);
+    return data;
+}
+
 async function removeFromCart(productId) {
     let resp = await fetch(`/javascriptRemoveFromCart?id=${productId}`);
     let data = await resp.json();
