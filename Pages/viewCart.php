@@ -10,6 +10,7 @@ $database = new Database();
 
 $cart = new Cart($database, session_id());
 $cartItems = $cart->getItems();
+$antalICarten = $cart->getItemsCount();
 
 
 ?>
@@ -42,7 +43,7 @@ $cartItems = $cart->getItems();
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="cartItemCount"><?php echo $antalICarten; ?></span>
                         </button>
                     </form>
                 </div>
@@ -65,7 +66,7 @@ $cartItems = $cart->getItems();
                         <th colspan="5">Cart</th>
                 </thead>
 
-                <tbody>
+                <tbody id="cartItem">
                     <?php
                     foreach($cartItems as $cartItem){
                         ?>
@@ -76,8 +77,8 @@ $cartItems = $cart->getItems();
                         <td><?php echo $cartItem->quantity; ?></td>
                         <td><?php echo $cartItem->rowPrice; ?></td>
                         <td>
-                            <a  href="/addToCart?id=<?php echo $cartItem->productId; ?>&fromPage=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"   class="btn btn-primary">+</a>
-                            <a  href="/removeFromCart?id=<?php echo $cartItem->productId; ?>&fromPage=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"   class="btn btn-primary">-</a></td>
+                            <a  onclick="addToCart(<?php echo $cartItem->productId; ?>)"   class="btn btn-primary">+</a>
+                            <a onclick="removeFromCart(<?php echo $cartItem->productId; ?>)"   class="btn btn-primary">-</a>
                     </tr>
                     <?php
                     }
@@ -89,7 +90,7 @@ $cartItems = $cart->getItems();
                         <td colspan="3">
                             SUMMA
                         </td>
-                        <td><?php echo $cart->getTotalPrice(); ?></td>
+                        <td id="cartTotalPrice"><?php echo $cart->getTotalPrice(); ?></td>
                         <td><a href="/checkout" class="btn btn-success">Checkout</a></td>
                     </tr>
                 </tfoot>

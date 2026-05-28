@@ -47,6 +47,10 @@ $router->addRoute('/javascriptAddToCart', function () {
    require_once(__DIR__.'/API/addToCart.php');
 });
 
+$router->addRoute('/javascriptRemoveFromCart', function () {
+   require_once(__DIR__.'/API/removeFromCart.php');
+});
+
 
 $router->addRoute('/addToCart', function () {
    require_once(__DIR__.'/Pages/addToCart.php');
