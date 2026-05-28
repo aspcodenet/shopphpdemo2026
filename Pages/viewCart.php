@@ -71,7 +71,11 @@ $antalICarten = $cart->getItemsCount();
                     foreach($cartItems as $cartItem){
                         ?>
                     <tr>
-                        <td><?php echo $cartItem->productName; ?></td>
+                        <td>
+                            <b>
+                            <?php echo $cartItem->productName; ?>
+                            </b>
+                        </td>
                        
                         <td><?php echo $cartItem->productPrice; ?></td>
                         <td><?php echo $cartItem->quantity; ?></td>
