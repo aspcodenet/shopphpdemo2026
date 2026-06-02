@@ -20,6 +20,7 @@ $router = new Router();
 $router->addRoute('/', function () {
     require_once( __DIR__ .'/Pages/index.php');
 });
+
 $router->addRoute('/product', function () {
     require_once( __DIR__ .'/Pages/product.php');
 });
@@ -69,6 +70,11 @@ $router->addRoute('/viewCart', function () {
 $router->addRoute('/prisjakt', function () {
    require_once(__DIR__.'/integrations/prisjakt.php');
 });
+
+$router->addRoute('/chat', function () {
+   require_once(__DIR__.'/Pages/chat.php');
+});
+
 
 $router->dispatch();
 
