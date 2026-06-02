@@ -44,7 +44,7 @@
 
   <script>
     // ⚠️ NEVER put API keys in client-side code in real life
-    const API_KEY = 'ak-fc-b928cddd5bd781b9a271b8cdecc52b13a6bdfc713259490b34532c6b11fe39e1';
+const API_KEY = 'ak-fc-b928cddd5bd781b9a271b8cdecc52b13a6bdfc713259490b34532c6b11fe39e1';
     const API_URL = 'https://fakecloud.systementor.se/v1/chat/completions';
 
     const messages = document.getElementById('messages');
