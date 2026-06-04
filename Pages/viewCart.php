@@ -76,7 +76,7 @@ $antalICarten = $cart->getItemsCount();
                             SUMMA
                         </td>
                         <td id="cartTotalPrice"><?php echo $cart->getTotalPrice(); ?></td>
-                        <td><a href="/checkout" class="btn btn-success">Checkout</a></td>
+                        <td><a href="/checkout" class="btn btn-success">Betala</a></td>
                     </tr>
                 </tfoot>
             </table>
