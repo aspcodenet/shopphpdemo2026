@@ -78,6 +78,11 @@ $router->addRoute('/prisjakt', function () {
    require_once(__DIR__.'/integrations/prisjakt.php');
 });
 
+$router->addRoute('/readfreightrules', function () {
+   require_once(__DIR__.'/integrations/readfreightrules.php');
+});
+
+
 $router->dispatch();
 
 

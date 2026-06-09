@@ -1,7 +1,8 @@
 {
     "require": {
         "vlucas/phpdotenv": "^5.6",
-        "stripe/stripe-php": "^20.2"
+        "stripe/stripe-php": "^20.2",
+        "league/csv": "^9.28"
     },
     "platform-check": false
 }

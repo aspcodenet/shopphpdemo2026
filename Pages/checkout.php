@@ -28,7 +28,21 @@ foreach($cart->getItems() as $cartitem ){
 
     ]);
 }
-// Nu är lineitems arrayen klar att skickas till Stripe API:et
+// stoppa in en till line item för fraktkostnaden
+// array_push($lineitems, [
+//     "quantity" => 1,
+//     "price_data" => [
+//         "currency" => "sek",
+//         "unit_amount" => 500,
+//         "product_data" => [
+//             "name" => "Fraktkostnad"
+//         ]
+//     ]
+
+// ]);
+
+// 
+// // Nu är lineitems arrayen klar att skickas till Stripe API:et
 $checkout_session = \Stripe\Checkout\Session::create([
     "mode" => "payment",
     "success_url" => "http://localhost:8000/checkoutsuccess",
