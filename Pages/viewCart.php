@@ -94,7 +94,9 @@ $antalICarten = $cart->getItemsCount();
                         <td></td>
                         <td>    </td>
                         <td></td>
-                        <td></td>
+                        <td>
+                            <span id="freightCost"></span>
+                        </td>
                     </tr>
 
                     <tr>
@@ -121,7 +123,21 @@ $antalICarten = $cart->getItemsCount();
             // när sidan laddas så rendera cart items i tabellen
             document.addEventListener("DOMContentLoaded", async function() {
                 const data = await fetchCartItems();
-                drawCart(data.cartItems, data.cartTotalPrice, data.cartTotalWeight);
+                drawCart(data.cartItems, data.cartTotalPrice, data.cartTotalWeight, data.freightCost);
+            });
+
+            const freightRulesSelect = document.getElementById('freightRulesSelect');
+            freightRulesSelect.addEventListener('change', function() {
+                const selectedFreightRuleId = this.value;
+       
+                if (selectedFreightRuleId) {
+
+                    fetch(`/calculateCartWithFreight?id=${selectedFreightRuleId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            drawCart(data.cartItems, data.cartTotalPrice, data.cartTotalWeight, data.freightCost);
+                        });
+                } 
             });
         </script>
     </body>

@@ -9,15 +9,10 @@ require_once(__DIR__.'/../Models/CartItem.php');
 $database = new Database();
 $cart = new Cart($database, session_id());
 
+$ruleId = $_GET['id'];
 
-$freightRuleId = $_GET['freightRuleId'] ?? null; // Om freightRuleId inte skickas med i URL:en så sätt den till null
-if($freightRuleId){
-    $freightRule = $database->getFreightRule($freightRuleId);
-    $freightCost = $cart->calculateFreightCost($freightRule);
-} else {
-    $freightCost = 0;
-}   
-
+$freightRule = $database->getFreightRule($ruleId);
+$freightCost = $cart->calculateFreightCost($freightRule);
 
 echo json_encode([
     "cartItems" => $cart->getItems(),

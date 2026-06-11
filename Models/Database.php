@@ -79,6 +79,15 @@ class Database {
         return $query->fetch();
     }
 
+    function getFreightRule($id){
+        $query = $this->pdo->prepare("SELECT id, zone_code as zoneCode, zone_name as zoneName, base_fee as baseFee, weight_modifier as weightMultiplier, free_shipping_threshold as freeShippingThreshold FROM freight_rules WHERE id = :id");
+        $query->execute(['id' => $id]);
+        $query->setFetchMode(PDO::FETCH_CLASS, 'FreightRule');
+        // TA SQL FRÅGA OCH KÖR I MYSQL
+        // OCH OMVANDLA SVARET TILL EN PRODUCT-OBJEKT
+        return $query->fetch();
+    }
+
     function getAllFreightRules(){
         $query = $this->pdo->query("SELECT id, zone_code as zoneCode, zone_name as zoneName, base_fee as baseFee, weight_modifier as weightMultiplier, free_shipping_threshold as freeShippingThreshold FROM freight_rules");
         $freightRules = $query->fetchAll(PDO::FETCH_CLASS, "FreightRule"); // KLASSNAMNET!!!
@@ -163,6 +172,7 @@ class Database {
         $categories = $query->fetchAll(PDO::FETCH_CLASS, "Category"); // KLASSNAMNET!!!
         return $categories;
     }
+
 
 
         function getCartItems($userId, $sessionId){
