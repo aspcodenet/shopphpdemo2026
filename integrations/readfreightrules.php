@@ -14,8 +14,7 @@ $database = new Database();
 
 
 
-var_dump($database->getAllFreightRules());
-die();
+
 
 echo "<h1>Fraktregler</h1>";
 echo "<ul>";
