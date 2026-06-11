@@ -9,6 +9,8 @@ class CartItem {
     public $productPrice;
     public $rowPrice;
     public $price;
+
+    public $weight;
 };
 
 ?>

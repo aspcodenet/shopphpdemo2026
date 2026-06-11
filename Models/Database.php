@@ -101,7 +101,7 @@ class Database {
 
 
     function listAllProducts(){
-        $query = $this->pdo->query("SELECT id,category_id,description,name as title,price,stock_level as stockLevel FROM product");
+        $query = $this->pdo->query("SELECT id,category_id,description,name as title,price,stock_level as stockLevel, weight FROM product");
         $products = $query->fetchAll(PDO::FETCH_CLASS, "Product"); // KLASSNAMNET!!!
         return $products;
     }
@@ -133,25 +133,27 @@ class Database {
 
     function createProduct($product){
         // INSERT INTO
-        $query = $this->pdo->prepare("INSERT INTO product (name, description, price, stock_level, category_id) VALUES (:name, :description, :price, :stockLevel, :category_id)");
-        $query->execute([
-            'name' => $product->title,
-            'description' => $product->description,
-            'price' => $product->price,
-            'stockLevel' => $product->stockLevel,
-            'category_id' => $product->category_id
-        ]);
-    }
-
-    function saveProduct($product){
-        // UPDATE
-        $query = $this->pdo->prepare("UPDATE product SET name=:name, description=:description, price=:price, stock_level=:stockLevel, category_id=:category_id WHERE id=:id");
+        $query = $this->pdo->prepare("INSERT INTO product (name, description, price, stock_level, category_id,weight) VALUES (:name, :description, :price, :stockLevel, :category_id, :weight)");
         $query->execute([
             'name' => $product->title,
             'description' => $product->description,
             'price' => $product->price,
             'stockLevel' => $product->stockLevel,
             'category_id' => $product->category_id,
+            'weight' => $product->weight
+        ]);
+    }
+
+    function saveProduct($product){
+        // UPDATE
+        $query = $this->pdo->prepare("UPDATE product SET name=:name, description=:description, price=:price, stock_level=:stockLevel, category_id=:category_id, weight=:weight WHERE id=:id");
+        $query->execute([
+            'name' => $product->title,
+            'description' => $product->description,
+            'price' => $product->price,
+            'stockLevel' => $product->stockLevel,
+            'category_id' => $product->category_id,
+            'weight' => $product->weight,
             'id' => $product->id
         ]);
     }
@@ -169,7 +171,7 @@ class Database {
                 $query->execute(['sessionId' => $sessionId, 'userId' => $userId]);
             }
 
-            $query = $this->pdo->prepare("SELECT CartItem.Id as id, CartItem.productId, CartItem.quantity, product.name as productName, product.price as productPrice, product.price * CartItem.quantity as rowPrice     FROM CartItem JOIN product ON product.id=CartItem.productId  WHERE userId=:userId or sessionId = :sessionId");
+            $query = $this->pdo->prepare("SELECT CartItem.Id as id, CartItem.productId, CartItem.quantity, product.name as productName, product.price as productPrice, product.price * CartItem.quantity as rowPrice  , product.weight as weight FROM CartItem JOIN product ON product.id=CartItem.productId  WHERE userId=:userId or sessionId = :sessionId");
             $query->execute(['sessionId' => $sessionId, 'userId' => $userId]);
 
 
