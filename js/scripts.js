@@ -1,7 +1,11 @@
-function drawCart(cartItems, cartTotalPrice) {
+function drawCart(cartItems, cartTotalPrice, cartTotalWeight) {
     const cartTotalPriceElement = document.getElementById('cartTotalPrice');
     if (cartTotalPriceElement) {
         document.getElementById('cartTotalPrice').innerText = cartTotalPrice;
+    }
+    const cartTotalWeightElement = document.getElementById('cartTotalWeight');
+    if (cartTotalWeightElement) {
+        document.getElementById('cartTotalWeight').innerText = cartTotalWeight;
     }
     const cartItemElement = document.getElementById('cartItem');
     if (cartItemElement) {
@@ -36,12 +40,12 @@ async function removeFromCart(productId) {
     let resp = await fetch(`/javascriptRemoveFromCart?id=${productId}`);
     let data = await resp.json();
     document.getElementById('cartItemCount').innerText = data.cartItemCount;
-    drawCart(data.cartItems, data.cartTotalPrice);
+    drawCart(data.cartItems, data.cartTotalPrice, data.cartTotalWeight);
 }
 
 async function addToCart(productId) { 
     let resp = await fetch(`/javascriptAddToCart?id=${productId}`);
     let data = await resp.json();
     document.getElementById('cartItemCount').innerText = data.cartItemCount;
-    drawCart(data.cartItems, data.cartTotalPrice);
+    drawCart(data.cartItems, data.cartTotalPrice, data.cartTotalWeight);
 }

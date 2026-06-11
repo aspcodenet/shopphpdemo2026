@@ -13,7 +13,8 @@ $cart = new Cart($database, session_id());
 
 echo json_encode([
     "cartItems" => $cart->getItems(),
-    "cartTotalPrice" => $cart->getTotalPrice()
+    "cartTotalPrice" => $cart->getTotalPrice(),
+    "cartTotalWeight" => $cart->getTotalWeight()
 ]);
 
 

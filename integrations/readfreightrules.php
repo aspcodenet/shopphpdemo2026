@@ -7,6 +7,9 @@
 require_once(__DIR__.'/../vendor/autoload.php');
 require_once(__DIR__.'/../Models/Database.php');
 
+
+
+
 $csv = League\Csv\Reader::createFromPath(__DIR__.'/frakt.csv', 'r');
 $csv->setHeaderOffset(0); // Första raden är header
 $records = $csv->getRecords();

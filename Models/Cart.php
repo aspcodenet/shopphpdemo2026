@@ -75,6 +75,15 @@ class Cart {
         return $total;
     }
 
+    public function getTotalWeight() {
+        $total = 0;
+        foreach ($this->cartItems as $item) {
+            $total += $item->weight * $item->quantity;
+        }
+        return $total;
+    }
+
+
 
     public function getItems() {
         return $this->cartItems;

@@ -70,6 +70,32 @@ $antalICarten = $cart->getItemsCount();
               
                 </tbody>
                 <tfoot>
+                    <tr>
+                        <td colspan="5">
+                        Kundkorgen väger:   
+                        <span id="cartTotalWeight">
+
+                        </span>  kg     
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select id="freightRulesSelect" class="form-select">
+                                <option value="">Välj fraktalternativ</option>
+                                <?php 
+                                    $freightRules = $database->getAllFreightRules();
+                                    foreach($freightRules as $rule){
+                                        echo "<option value='$rule->id'>$rule->zoneName - $rule->baseFee kr + $rule->weightMultiplier kr/kg</option>";
+                                    }
+                                ?>
+
+                            </select>
+                        </td>
+                        <td></td>
+                        <td>    </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
                     <tr>
                         <td colspan="3">
@@ -91,11 +117,11 @@ $antalICarten = $cart->getItemsCount();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <script>
+    <script>
             // när sidan laddas så rendera cart items i tabellen
             document.addEventListener("DOMContentLoaded", async function() {
                 const data = await fetchCartItems();
-                drawCart(data.cartItems, data.cartTotalPrice);
+                drawCart(data.cartItems, data.cartTotalPrice, data.cartTotalWeight);
             });
         </script>
     </body>

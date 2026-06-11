@@ -14,6 +14,8 @@ $cart = new Cart($database, session_id());
 // inte bara i databasen utan även i cartItems arrayen i Cart klassen
 $cart->addItem($productIdToAddToCart, 1);
 
+// READ CART FROM DATABASE AGAIN TO GET UPDATED CART ITEMS, TOTAL PRICE AND TOTAL WEIGHT
+$cart = new Cart($database, session_id());
 
 
 echo json_encode([
@@ -22,6 +24,7 @@ echo json_encode([
     'cartItemCount' => $cart->getItemsCount(),
     'cartTotalPrice' => $cart->getTotalPrice(),
     "cartItems" => $cart->getItems(),
+    "cartTotalWeight" => $cart->getTotalWeight()
 ]);
 
 

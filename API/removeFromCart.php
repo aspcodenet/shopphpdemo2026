@@ -22,6 +22,7 @@ echo json_encode([
     'cartItemCount' => $cart->getItemsCount(),
     'cartTotalPrice' => $cart->getTotalPrice(),
     "cartItems" => $cart->getItems(),
+    "cartTotalWeight" => $cart->getTotalWeight()
 ]);
 
 
