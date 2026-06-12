@@ -104,7 +104,7 @@ $antalICarten = $cart->getItemsCount();
                             SUMMA
                         </td>
                         <td id="cartTotalPrice"><?php echo $cart->getTotalPrice(); ?></td>
-                        <td><a href="/checkout" class="btn btn-success">Betala</a></td>
+                        <td><a onclick="onPay()" class="btn btn-success">Betala</a></td>
                     </tr>
                 </tfoot>
             </table>
@@ -120,6 +120,14 @@ $antalICarten = $cart->getItemsCount();
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     <script>
+            function onPay(){
+                const selectedRulesId =   freightRulesSelect.value; // den valda
+                // vi ska sätta url till /checkout?ruleid=<deb valda ruleidt>
+                const url = '/checkout?ruleid=' + selectedRulesId;
+                window.location = url;
+            }
+
+
             // när sidan laddas så rendera cart items i tabellen
             document.addEventListener("DOMContentLoaded", async function() {
                 const data = await fetchCartItems();

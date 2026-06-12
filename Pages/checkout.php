@@ -28,18 +28,26 @@ foreach($cart->getItems() as $cartitem ){
 
     ]);
 }
-// stoppa in en till line item för fraktkostnaden
-// array_push($lineitems, [
-//     "quantity" => 1,
-//     "price_data" => [
-//         "currency" => "sek",
-//         "unit_amount" => 500,
-//         "product_data" => [
-//             "name" => "Fraktkostnad"
-//         ]
-//     ]
 
-// ]);
+
+// checkout.php?ruleId=1,   checkout.php?ruleId=12
+$ruleId = $_GET['ruleid'];
+$freightRule = $database->getFreightRule($ruleId);
+$freightCost = $cart->calculateFreightCost($freightRule);
+
+
+// stoppa in en till line item för fraktkostnaden
+array_push($lineitems, [
+    "quantity" => 1,
+    "price_data" => [
+        "currency" => "sek",
+        "unit_amount" => $freightCost*100,
+        "product_data" => [
+            "name" => "Fraktkostnad"
+        ]
+    ]
+
+]);
 
 // 
 // // Nu är lineitems arrayen klar att skickas till Stripe API:et
