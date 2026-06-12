@@ -18,7 +18,7 @@ $cart->addItem($productIdToAddToCart, 1);
 $cart = new Cart($database, session_id());
 
 $freightRuleId = $_GET['freightRuleId'] ?? null; // Om freightRuleId inte skickas med i URL:en så sätt den till null
-if($freightRuleId){
+if($freightRuleId && $freightRuleId !== "null"){
     $freightRule = $database->getFreightRule($freightRuleId);
     $freightCost = $cart->calculateFreightCost($freightRule);
 } else {
